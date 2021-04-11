@@ -8,9 +8,6 @@ const findUserById = (uid) => {
     return usersModel.findById(uid).populate("users").exec()
 }
 
-// const createUser = () => {}
-// const deleteUser = () => {}
-
 module.exports = {
     findAllUsers, findUserById
 }

@@ -2,12 +2,9 @@
 const express = require('express')
 const app = express()
 
-// var bodyParser = require('body-parser')
-// app.use(bodyParser.urlencoded({ extended: false }))
-// app.use(bodyParser.json())
-
 const mongoose = require('mongoose');
-mongoose.connect('mongodb://localhost:27017/webdev-final-project',
+// <username>:<password>@<mongodbClusterName>/<db>
+mongoose.connect('mongodb+srv://userWebdev:5610@clusterwebdevfinal.nlvkz.mongodb.net/webdev-final-project',
     {useNewUrlParser: true, useUnifiedTopology: true});
 
 const session = require('express-session')
@@ -35,3 +32,4 @@ require("./controllers/profile-controller")(app)
 
 
 app.listen(3000)
+console.log("node server is running!")
