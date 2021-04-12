@@ -13,9 +13,9 @@ const deleteProfile = (uid) => {
 }
 
 const updateProfile = (uid, profile) => {
-    return profileModel.findOneAndUpdate(
-        {_id: uid},
-        {
+    return profileModel.findByIdAndUpdate(
+        uid,
+{
             $set: {
                 firstName: profile.firstName,
                 lastName: profile.lastName,
@@ -23,7 +23,6 @@ const updateProfile = (uid, profile) => {
                 avatar: profile.avatar,
                 phone: profile.phone,
                 address: profile.address,
-
                 email: profile.email,
                 about: profile.about
             }

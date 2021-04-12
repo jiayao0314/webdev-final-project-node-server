@@ -8,6 +8,6 @@ const userSchema = mongoose.Schema({
     address: String,
     email: String,
     about: String
-}, {collection: "users"})
+}, {collection: "users", timestamps: true})
 
 module.exports = userSchema
