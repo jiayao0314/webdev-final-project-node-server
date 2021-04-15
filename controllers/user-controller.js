@@ -1,15 +1,28 @@
 module.exports = (app) => {
-    const userModel = require("../database/user/user-model")
+    const userService = require("../services/user-service")
 
     const register = (req, res) => {
-        const user = req.body;
+        const firstName = req.body.firstName;
+        const lastName = req.body.lastName;
+        const password = req.body.password;
+        const address = req.body.address;
+        const email = req.body.email;
+        const phone = req.body.phone;
+        const user ={
+            firstName: firstName,
+            lastName: lastName,
+            password: password,
+            address: address,
+            email: email,
+            phone: phone,
+        };
         // TODO: move this to a service file
-        userModel.create(user)
-            .then((actualUser) => {
-                req.session['currentUser'] = actualUser
-                res.send(actualUser)
+        userService.register(user)
+            .then((user) => {
+                res.send(user)
             })
     }
+    /*
     const login = (req, res) => {
         const user = req.body;
         userModel.find({
@@ -24,6 +37,8 @@ module.exports = (app) => {
             }
         })
     }
+
+     */
     const logout = (req, res) => {
         req.session
     }
@@ -37,7 +52,7 @@ module.exports = (app) => {
     }
 
     app.post("/api/register", register)
-    app.post("/api/login", login)
+    //app.post("/api/login", login)
     app.post("/api/logout", logout)
     app.post("/api/profile", profile)
 }
