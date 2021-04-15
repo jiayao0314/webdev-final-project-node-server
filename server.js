@@ -27,10 +27,9 @@ app.use(function (req, res, next) {
     next();
 });
 
-
 require("./controllers/user-controller")(app)
 require("./controllers/profile-controller")(app)
-
+require("./controllers/review-controller")(app)
 
 app.listen(3000)
 console.log("node server is running!")
