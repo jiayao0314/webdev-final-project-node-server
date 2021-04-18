@@ -25,10 +25,7 @@ module.exports = (app) => {
     }
 
     const updateProfile = (req, res) => {
-        // console.log("running node profileService")
-        // console.log(typeof req.body)
         console.log(req.body)
-        // res.send(res.json(req.body))
         profileService.updateProfile(req.params['uid'], req.body, { useFindAndModify: false })
             .then((profile) => {
                 res.send(profile)
@@ -41,3 +38,4 @@ module.exports = (app) => {
     app.delete("/api/profile/:uid", deleteProfile)
     app.put("/api/profile/:uid", updateProfile)
 }
+
