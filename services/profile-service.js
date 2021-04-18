@@ -1,19 +1,19 @@
-const profileModel = require("../database/profile/profile-model")
+const userModel = require("../database/user/user-model")
 
 const findAllProfiles = () => {
-    return profileModel.find()
+    return userModel.find()
 }
 
 const findProfileByUserId = (uid) => {
-    return profileModel.findById(uid).exec()
+    return userModel.findById(uid).exec()
 }
 
 const deleteProfile = (uid) => {
-    return profileModel.deleteOne({_id: uid})
+    return userModel.deleteOne({_id: uid})
 }
 
 const updateProfile = (uid, profile) => {
-    return profileModel.findByIdAndUpdate(
+    return userModel.findByIdAndUpdate(
         uid,
 {
             $set: {

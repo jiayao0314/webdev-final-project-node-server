@@ -1,12 +1,14 @@
 const mongoose = require("mongoose")
-const reviewSchema = mongoose.Schema({
-    userId: [{
-        _id: String,
-        ref: 'userModel'
-    }],
+const Schema = require("mongoose");
+
+const reviewSchema = new mongoose.Schema({
     recipeId: String,
     text: String,
     // likeCount: Number
-}, {collection: "reviews"})
+    users: [{
+        type: Schema.Types.ObjectId,
+        ref: 'userModel'
+    }],
+}, {collection: "reviews", timestamps: true})
 
 module.exports = reviewSchema

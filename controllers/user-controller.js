@@ -1,6 +1,8 @@
+const userModel = require("../database/user/user-model");
 module.exports = (app) => {
     const userService = require("../services/user-service")
 
+    /*
     const register = (req, res) => {
         const firstName = req.body.firstName;
         const lastName = req.body.lastName;
@@ -22,13 +24,25 @@ module.exports = (app) => {
                 res.send(user)
             })
     }
-    /*
+    */
+
+    const register = (req, res) => {
+        const newUser = req.body;
+        userService.register(newUser)
+            .then(actualUser => {
+                req.session['currentUser'] = actualUser;
+                res.send(actualUser);
+            })
+            .catch(() => {
+                res.status(400).send('Invalid username, might be duplicated');
+            });
+    }
+
+
     const login = (req, res) => {
         const user = req.body;
-        userModel.find({
-            username: user.username,
-            password: user.password
-        }).then((actualUser) => {
+        userService.findUserByCredentials(user.username, user.password)
+            .then((actualUser) => {
             if(actualUser) {
                 req.session["currentUser"] = actualUser
                 res.send(actualUser)
@@ -40,8 +54,12 @@ module.exports = (app) => {
 
 
     const logout = (req, res) => {
-        req.session
+        delete req.session;
+        res.send("user logout");
+        res.redirect('/')
+
     }
+
     const profile = (req, res) => {
         const currentUser = req.session["currentUser"]
         if(currentUser) {
@@ -51,10 +69,8 @@ module.exports = (app) => {
         }
     }
 
-     */
-
     app.post("/api/register", register)
-    //app.post("/api/login", login)
-    //app.post("/api/logout", logout)
-    //app.post("/api/profile", profile)
+    app.post("/api/login", login)
+    app.post("/api/logout", logout)
+    app.post("/api/profile", profile)
 }
