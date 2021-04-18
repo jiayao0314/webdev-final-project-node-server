@@ -38,3 +38,14 @@ module.exports = (app) => {
     app.delete("/api/profile/:uid", deleteProfile)
     app.put("/api/profile/:uid", updateProfile)
 }
+
+
+
+const profile = (req, res) => {
+    const currentUser = req.session["currentUser"]
+    if(currentUser) {
+        res.send(currentUser)
+    } else {
+        res.send(403)
+    }
+}
