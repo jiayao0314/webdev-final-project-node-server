@@ -4,7 +4,7 @@ const register = (user) =>
 {
     return usersModel.create([
             {
-                userName: user.userName,
+                username: user.username,
                 firstName: user.firstName,
                 lastName: user.lastName,
                 password: user.password,
