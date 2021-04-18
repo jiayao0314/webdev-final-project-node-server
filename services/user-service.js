@@ -20,6 +20,10 @@ const findUserByCredentials = (username, password) => {
     return usersModel.findOne({username, password});
 }
 
+const findUserByUsername = (username) => {
+    return usersModel.find({username})
+}
+
 module.exports = {
-    register, findUserByCredentials
+    register, findUserByCredentials, findUserByUsername
 }
