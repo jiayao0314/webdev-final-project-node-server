@@ -11,20 +11,25 @@ const mongoose = require('mongoose');
 mongoose.connect('mongodb+srv://userWebdev:5610@clusterwebdevfinal.nlvkz.mongodb.net/webdev-final-project',
     {useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false});
 
-const bodyParser = require('body-parser');
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({
-    extended: true
-}));
-
 const session = require('express-session')
+// app.use(session({
+//     secret: 'keyboard cat',
+//     resave: false,
+//     saveUninitialized: true,
+//     // cookie: { secure: true }
+// }))
+
+// TODO: really need this? store?
+const MongoStore = require('connect-mongo');
+// const db = mongoose.connection
 app.use(session({
     secret: 'keyboard cat',
     resave: false,
     saveUninitialized: true,
+    store: MongoStore.create({
+        mongoUrl: 'mongodb+srv://userWebdev:5610@clusterwebdevfinal.nlvkz.mongodb.net/webdev-final-project'})
     // cookie: { secure: true }
 }))
-
 
 // configure CORS
 app.use(function (req, res, next) {

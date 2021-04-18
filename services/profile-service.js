@@ -12,25 +12,8 @@ const deleteProfile = (uid) => {
     return userModel.deleteOne({_id: uid})
 }
 
-const updateProfile = (uid, profile) => {
-    return userModel.findByIdAndUpdate(
-        uid,
-{
-            $set: {
-                firstName: profile.firstName,
-                lastName: profile.lastName,
-                password: profile.password,
-                avatar: profile.avatar,
-                phone: profile.phone,
-                address: profile.address,
-                email: profile.email,
-                about: profile.about
-            }
-        },
-        {
-            upsert: true
-        }
-        )
+const updateProfile = (profile) => {
+    return userModel.updateOne({_id: profile._id}, {set: profile});
 }
 
 module.exports = {

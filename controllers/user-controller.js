@@ -1,4 +1,5 @@
-const userService = require("../services/user-service");
+module.exports = (app) => {
+    const userService = require("../services/user-service");
 
     const register = (req, res) => {
         const newUser = req.body;
@@ -16,22 +17,22 @@ const userService = require("../services/user-service");
         const user = req.body;
         userService.findUserByCredentials(user.username, user.password)
             .then((actualUser) => {
-            if(actualUser) {
-                req.session["currentUser"] = actualUser
-                res.send(actualUser)
-            } else {
-                res.send(403)
-            }
-        })
+                if (actualUser) {
+                    req.session["currentUser"] = actualUser
+                    res.send(actualUser)
+                } else {
+                    res.send("username and password not match")
+                }
+            })
     }
 
-
+    // TODO: session not delete from the db
     const logout = (req, res) => {
         delete req.session;
         res.send("user logout");
-        res.redirect('/')
     }
 
     app.post("/api/register", register)
     app.post("/api/login", login)
     app.post("/api/logout", logout)
+}
