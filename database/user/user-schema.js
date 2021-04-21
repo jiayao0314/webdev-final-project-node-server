@@ -8,12 +8,12 @@ const userSchema = new mongoose.Schema({
     phone: String,
     address: String,
     email: String,
-    role: {type: String, enum: ['ADMIN', 'USER']},
+    role: {type: String, enum: ["ADMIN", "USER"]},
     avatar: String,
     about: String,
     reviews: [{
         type: Schema.Types.ObjectId,
-        ref: 'reviewModel'
+        ref: "reviewModel"
     }],
 }, {collection: "users", timestamps: true})
 

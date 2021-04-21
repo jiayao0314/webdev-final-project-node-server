@@ -1,29 +1,39 @@
-const usersModel = require("../database/user/user-model")
+const userModel = require("../database/user/user-model")
 
-const register = (user) =>
-{
-    return usersModel.create([
-            {
-                username: user.username,
-                firstName: user.firstName,
-                lastName: user.lastName,
-                password: user.password,
-                phone: user.phone,
-                address: user.address,
-                email: user.email,
-            }
-        ]
-        )
+const register = (user) => {
+    return userModel.create(user);
 }
 
 const findUserByCredentials = (username, password) => {
-    return usersModel.findOne({username, password});
+    return userModel.findOne({username, password});
 }
 
 const findUserByUsername = (username) => {
-    return usersModel.find({username})
+    return userModel.find({username})
+}
+
+const findUserById = (uid) => {
+    return userModel.findById(uid).exec()
+}
+
+const findAllUsers = () => {
+    return userModel.find()
+}
+
+const deleteUser = (uid) => {
+    return userModel.deleteOne({_id: uid})
+}
+
+const updateUser = (user) => {
+    return userModel.updateOne({_id: user._id}, {$set: user});
 }
 
 module.exports = {
-    register, findUserByCredentials, findUserByUsername
+    register,
+    findUserByCredentials,
+    findUserByUsername,
+    findUserById,
+    findAllUsers,
+    deleteUser,
+    updateUser
 }
