@@ -12,7 +12,7 @@ const userSchema = new mongoose.Schema({
     avatar: String,
     about: String,
     reviews: [{
-        type: Schema.Types.ObjectId,
+        type: mongoose.Schema.Types.ObjectId,
         ref: "reviewModel"
     }],
 }, {collection: "users", timestamps: true})

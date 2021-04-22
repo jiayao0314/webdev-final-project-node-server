@@ -9,7 +9,7 @@ app.use(bodyParser.json())
 
 const mongoose = require('mongoose');
 
-const mongoAtlasUri = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@clusterwebdevfinal.nlvkz.mongodb.net/webdev-final-project`
+const mongoAtlasUri = `mongodb+srv://userWebdev:5610@clusterwebdevfinal.nlvkz.mongodb.net/webdev-final-project`
 try {
     mongoose.connect(mongoAtlasUri,
         {useNewUrlParser: true, useUnifiedTopology: true},
@@ -41,6 +41,7 @@ app.use(function (req, res, next) {
 
 require("./controllers/user-controller")(app)
 require("./controllers/review-controller")(app)
+require("./controllers/favorite-controller")(app)
 
 app.listen(3000)
 console.log("node server is running!")

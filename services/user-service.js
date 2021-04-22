@@ -13,7 +13,7 @@ const findUserByUsername = (username) => {
 }
 
 const findUserById = (uid) => {
-    return userModel.findById(uid).exec()
+    return userModel.findById(uid)
 }
 
 const findAllUsers = () => {

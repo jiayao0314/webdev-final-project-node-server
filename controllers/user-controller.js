@@ -12,9 +12,9 @@ module.exports = (app) => {
                         .then((newUser) => {
                             req.session['profile'] = newUser;
                             res.json(newUser);
-                        })
+                        });
                 }
-            })
+            });
     }
 
     const login = (req, res) => {
@@ -28,7 +28,7 @@ module.exports = (app) => {
                 } else {
                     res.sendStatus(403);
                 }
-            })
+            });
     }
 
     const logout = (req, res) => {
@@ -46,33 +46,34 @@ module.exports = (app) => {
     }
 
     const findUserById = (req, res) => {
-        const targetId = req.params['uid']
+        const targetId = req.params['uid'];
         userService.findUserById(targetId)
             .then((user) => {
                 res.send(user);
             })
+            .catch(err => console.error(`user not login, findUserById error: ${err}`));
     }
 
     const findAllUsers = (req, res) => {
         userService.findAllUsers()
             .then((users) => {
-                const currentUser = req.session['currentUser']
+                const currentUser = req.session['currentUser'];
                 if(currentUser && currentUser.role === "ADMIN") {
                     res.json(users);
                 } else {
                     res.sendStatus(400);
                 }
-            })
+            });
     }
 
     const deleteUserById = (req, res) => {
-        const currentUser = req.session['currentUser']
-        const targetId = req.params['uid']
+        const currentUser = req.session['currentUser'];
+        const targetId = req.params['uid'];
         if(currentUser.role === 'ADMIN') {
             userService.deleteUser(targetId)
                 .then((profile) => {
-                    res.sendStatus(200);
-                })
+                    res.json("delete user: " + targetId);
+                });
         } else {
             // res.send("not admin, can not deleteProfile!")
             res.sendStatus(400);
@@ -80,27 +81,28 @@ module.exports = (app) => {
     }
 
     const updateUser = (req, res) => {
-        const currentUser = req.session['currentUser']
-        const updatedUser = req.body
+        const currentUser = req.session['currentUser'];
+        const updatedUser = req.body;
         if(currentUser._id === updatedUser._id) {
             userService.updateUser(updatedUser)
                 .then((newUser) => {
-                    res.send(newUser);
+                    res.json("update user: " + updatedUser._id);
                     req.session['currentUser'] = updatedUser;
                     req.session.save();
-                })
+                });
         } else {
             res.sendStatus(400);
         }
     }
 
-    app.post("/api/register", register)
-    app.post("/api/login", login)
-    app.post("/api/logout", logout)
+    app.post("/api/register", register);
+    app.post("/api/login", login);
+    app.post("/api/logout", logout);
 
-    app.get("/api/profile", findUser)
-    app.get("/api/profile/:uid", findUserById)
-    app.get("/api/profiles", findAllUsers)
-    app.delete("/api/profile/:uid", deleteUserById)
-    app.put("/api/profile", updateUser)
+    // "/profile" for all users, /profiles for admin
+    app.get("/api/profile", findUser);
+    app.get("/api/profiles/:uid", findUserById);
+    app.get("/api/profiles", findAllUsers);
+    app.delete("/api/profiles/:uid", deleteUserById);
+    app.put("/api/profile", updateUser);
 }

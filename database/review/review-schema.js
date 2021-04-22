@@ -5,8 +5,8 @@ const reviewSchema = new mongoose.Schema({
     recipeId: String,
     text: String,
     // likeCount: Number
-    users: [{
-        type: Schema.Types.ObjectId,
+    user: [{
+        type: mongoose.Schema.Types.ObjectId,
         ref: 'userModel'
     }],
 }, {collection: "reviews", timestamps: true})

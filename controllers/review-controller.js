@@ -1,4 +1,3 @@
-
 module.exports = (app) => {
     const reviewService = require("../services/review-service")
 
