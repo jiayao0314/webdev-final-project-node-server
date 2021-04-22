@@ -13,8 +13,12 @@ const createReviewForRecipe = (recipeId, review) => {
     return reviewModel.create({recipeId: recipeId, text: review.text})
 }
 
+const findReviewById = (reviewId) => {
+    return reviewModel.findById(reviewId)
+}
+
 module.exports = {
-    findAllReviews, findReviewsByRecipe, createReviewForRecipe
+    findAllReviews, findReviewsByRecipe, createReviewForRecipe, findReviewById
 }
 
 
