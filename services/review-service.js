@@ -18,8 +18,12 @@ const findReviewById = (reviewId) => {
     return reviewModel.findById(reviewId)
 }
 
+const findReviewsByUserId = (userId) => {
+    return reviewModel.findById(userId)
+}
+
 module.exports = {
-    findAllReviews, findReviewsByRecipe, createReviewForRecipe, findReviewById
+    findAllReviews, findReviewsByRecipe, createReviewForRecipe, findReviewById, findReviewsByUserId
 }
 
 

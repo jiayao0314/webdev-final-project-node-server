@@ -10,11 +10,7 @@ const userSchema = new mongoose.Schema({
     email: String,
     role: {type: String, enum: ["ADMIN", "USER"]},
     avatar: String,
-    about: String,
-    reviews: [{
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "reviewModel"
-    }],
+    about: String
 }, {collection: "users", timestamps: true})
 
 module.exports = userSchema

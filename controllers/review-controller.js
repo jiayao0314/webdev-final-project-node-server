@@ -39,9 +39,17 @@ module.exports = (app) => {
 
     const deleteReview = (req, res) => {}
 
+    const findReviewsByUserId = (req, res) => {
+        // const currentUser = req.session.currentUser;
+        const userId = req.params["uid"];
+        reviewService.findReviewsByUserId(userId)
+            .then(reviews => res.json(reviews))
+    }
+
     app.get("/api/reviews", findAllReviews)
     app.get("/api/reviews/:recipeId", findReviewsByRecipe)
     app.post("/api/reviews/:recipeId", createReviewForRecipe)
     app.get('/api/internal/reviews/:reviewId', findReviewById)
+    app.get("/api/reviews/:uid", findReviewsByUserId)
 }
 
