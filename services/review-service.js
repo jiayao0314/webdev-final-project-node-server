@@ -9,21 +9,26 @@ const findReviewsByRecipe = (recipeId) => {
     return reviewModel.find({recipeId: recipeId}).populate("users").exec()
 }
 
-const createReviewForRecipe = (recipeId, review, username) => {
-    // return reviewModel.create({recipeId: recipeId, text: review.text, userId: review.user})
-    return reviewModel.create({recipeId, text: review.review.text, username})
+const createReviewForRecipe = (recipeId, textArea, username, recipeName, recipeImg) => {
+    return reviewModel.create({recipeId, textArea, username, recipeName, recipeImg})
 }
 
 const findReviewById = (reviewId) => {
     return reviewModel.findById(reviewId)
 }
 
-const findReviewsByUserId = (userId) => {
-    return reviewModel.findById(userId)
+const findReviewsByUsername = (username) => {
+    if(username) {
+        return reviewModel.find({username});
+    }
+}
+
+const deleteReview = (recipeId, reviewId) => {
+    return reviewModel.deleteOne({recipeId, _id: reviewId});
 }
 
 module.exports = {
-    findAllReviews, findReviewsByRecipe, createReviewForRecipe, findReviewById, findReviewsByUserId
+    findAllReviews, findReviewsByRecipe, createReviewForRecipe, findReviewById, findReviewsByUsername, deleteReview
 }
 
 

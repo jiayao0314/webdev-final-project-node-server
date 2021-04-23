@@ -3,7 +3,7 @@ const Schema = require("mongoose");
 
 const reviewSchema = new mongoose.Schema({
     recipeId: String,
-    text: String,
+    textArea: String,
     // userId: {
     //     type: Schema.Types.ObjectId,
     //     ref: 'UserModel'
@@ -12,6 +12,8 @@ const reviewSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.String,
         ref: "UserModel"
     },
+    recipeName: String,
+    recipeImg: String
 }, {collection: "reviews", timestamps: true})
 
 module.exports = reviewSchema

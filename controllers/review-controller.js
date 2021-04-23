@@ -21,12 +21,13 @@ module.exports = (app) => {
         //     .then((reviews) => {
         //         res.send(reviews)
         //     })
-        const recipeId = req.params.recipeId;
         const review = req.body;
-        // const userId = req.session.currentUser._id;
-        const username = req.session.currentUser.username;
-        // const username = req.body.username;
-        reviewService.createReviewForRecipe(recipeId, review, username)
+        const recipeId = review.recipeId;
+        const textArea = review.textArea;
+        const username = review.username;
+        const recipeName = review.recipeName;
+        const recipeImg = review.recipeImg;
+        reviewService.createReviewForRecipe(recipeId, textArea, username, recipeName, recipeImg)
             .then(review => res.json(review));
     }
 
@@ -38,12 +39,16 @@ module.exports = (app) => {
             })
     }
 
-    const deleteReview = (req, res) => {}
+    const deleteReview = (req, res) => {
+        const recipeId = req.params["recipeId"];
+        const reviewId = req.params["reviewId"];
+        reviewService.deleteReview(recipeId, reviewId)
+            .then(review => res.json(review));
+    }
 
-    const findReviewsByUserId = (req, res) => {
-        // const currentUser = req.session.currentUser;
-        const userId = req.params["uid"];
-        reviewService.findReviewsByUserId(userId)
+    const findReviewsByUsername = (req, res) => {
+        const username = req.params["username"];
+        reviewService.findReviewsByUsername(username)
             .then(reviews => res.json(reviews))
     }
 
@@ -51,6 +56,7 @@ module.exports = (app) => {
     app.get("/api/reviews/:recipeId", findReviewsByRecipe)
     app.post("/api/reviews/:recipeId", createReviewForRecipe)
     app.get('/api/internal/reviews/:reviewId', findReviewById)
-    app.get("/api/reviews/:uid", findReviewsByUserId)
+    app.get("/api/reviews/username/:username", findReviewsByUsername)
+    app.delete("/api/reviews/:recipeId/:reviewId", deleteReview)
 }
 
