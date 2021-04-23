@@ -23,9 +23,10 @@ module.exports = (app) => {
         //     })
         const recipeId = req.params.recipeId;
         const review = req.body;
-        const userId = req.session.currentUser._id;
+        // const userId = req.session.currentUser._id;
+        const username = req.session.currentUser.username;
         // const username = req.body.username;
-        reviewService.createReviewForRecipe(recipeId, review, userId)
+        reviewService.createReviewForRecipe(recipeId, review, username)
             .then(review => res.json(review));
     }
 
