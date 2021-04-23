@@ -17,10 +17,16 @@ module.exports = (app) => {
     }
 
     const createReviewForRecipe = (req, res) => {
-        reviewService.createReviewForRecipe(req.params.recipeId, req.body)
-            .then((reviews) => {
-                res.send(reviews)
-            })
+        // reviewService.createReviewForRecipe(req.params.recipeId, req.body)
+        //     .then((reviews) => {
+        //         res.send(reviews)
+        //     })
+        const recipeId = req.params.recipeId;
+        const review = req.body;
+        const userId = req.session.currentUser._id;
+        // const username = req.body.username;
+        reviewService.createReviewForRecipe(recipeId, review, userId)
+            .then(review => res.json(review));
     }
 
     const findReviewById = (req, res) => {

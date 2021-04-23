@@ -9,7 +9,8 @@ app.use(bodyParser.json())
 
 const mongoose = require('mongoose');
 
-const mongoAtlasUri = `mongodb+srv://userWebdev:5610@clusterwebdevfinal.nlvkz.mongodb.net/webdev-final-project`
+const mongoAtlasUri = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@clusterwebdevfinal.nlvkz.mongodb.net/webdev-final-project`
+
 try {
     mongoose.connect(mongoAtlasUri,
         {useNewUrlParser: true, useUnifiedTopology: true},
