@@ -26,7 +26,7 @@ module.exports = (app) => {
                     req.session['currentUser'] = user;
                     res.send(user);
                 } else {
-                    res.sendStatus(403);
+                    res.send("0");
                 }
             });
     }

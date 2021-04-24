@@ -9,7 +9,7 @@ app.use(bodyParser.json())
 
 const mongoose = require('mongoose');
 
-const mongoAtlasUri = process.env.MONGODB_URI;
+const mongoAtlasUri = `mongodb+srv://userWebdev:5610@clusterwebdevfinal.nlvkz.mongodb.net/webdev-final-project`;
 
 try {
     mongoose.connect(mongoAtlasUri,
