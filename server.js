@@ -9,7 +9,7 @@ app.use(bodyParser.json())
 
 const mongoose = require('mongoose');
 
-const mongoAtlasUri = `mongodb+srv://userWebdev:5610@clusterwebdevfinal.nlvkz.mongodb.net/webdev-final-project`
+const mongoAtlasUri = process.env.MONGODB_URI;
 
 try {
     mongoose.connect(mongoAtlasUri,
@@ -41,5 +41,5 @@ require("./controllers/user-controller")(app)
 require("./controllers/review-controller")(app)
 require("./controllers/favorite-controller")(app)
 
-app.listen(3000)
+app.listen(process.env.PORT || 3000)
 console.log("node server is running!")
