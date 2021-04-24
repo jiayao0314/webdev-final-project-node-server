@@ -60,43 +60,26 @@ module.exports = (app) => {
                 const currentUser = req.session['currentUser'];
                 console.log("currentUser" + currentUser)
                 console.log("currentUser.role" + currentUser.role)
-                if(currentUser && currentUser.role === "ADMIN") {
-                    // res.json(users);
-                    res.set({'Access-Control-Allow-Origin': "*"})
-                        .send(users)
-                } else {
-                    res.sendStatus(400);
-                }
+                res.json(users);
             });
     }
 
     const deleteUserById = (req, res) => {
-        const currentUser = req.session['currentUser'];
         const targetId = req.params['uid'];
-        if(currentUser.role === 'ADMIN') {
-            userService.deleteUser(targetId)
-                .then((profile) => {
-                    res.json("delete user: " + targetId);
-                });
-        } else {
-            // res.send("not admin, can not deleteProfile!")
-            res.sendStatus(400);
-        }
+        userService.deleteUser(targetId)
+            .then((profile) => {
+                res.json("delete user: " + targetId);
+            });
     }
 
     const updateUser = (req, res) => {
-        const currentUser = req.session['currentUser'];
         const updatedUser = req.body;
-        if(currentUser._id === updatedUser._id) {
-            userService.updateUser(updatedUser)
-                .then((newUser) => {
-                    res.json("update user: " + updatedUser._id);
-                    req.session['currentUser'] = updatedUser;
-                    req.session.save();
-                });
-        } else {
-            res.sendStatus(400);
-        }
+        userService.updateUser(updatedUser)
+            .then((newUser) => {
+                res.json("update user: " + updatedUser._id);
+                req.session['currentUser'] = updatedUser;
+                req.session.save();
+            });
     }
 
     app.post("/api/register", register);
