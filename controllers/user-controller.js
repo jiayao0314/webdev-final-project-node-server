@@ -57,10 +57,7 @@ module.exports = (app) => {
     const findAllUsers = (req, res) => {
         userService.findAllUsers()
             .then((users) => {
-                const currentUser = req.session['currentUser'];
-                console.log("currentUser" + currentUser)
-                console.log("currentUser.role" + currentUser.role)
-                res.json(users);
+                res.send(users);
             });
     }
 
