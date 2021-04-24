@@ -61,7 +61,9 @@ module.exports = (app) => {
                 console.log("currentUser" + currentUser)
                 console.log("currentUser.role" + currentUser.role)
                 if(currentUser && currentUser.role === "ADMIN") {
-                    res.json(users);
+                    // res.json(users);
+                    res.set({'Access-Control-Allow-Origin': `${process.env.ALLOW_ORIGIN}`})
+                        .send(users)
                 } else {
                     res.sendStatus(400);
                 }
