@@ -58,6 +58,8 @@ module.exports = (app) => {
         userService.findAllUsers()
             .then((users) => {
                 const currentUser = req.session['currentUser'];
+                console.log("currentUser" + currentUser)
+                console.log("currentUser.role" + currentUser.role)
                 if(currentUser && currentUser.role === "ADMIN") {
                     res.json(users);
                 } else {
