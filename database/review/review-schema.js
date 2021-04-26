@@ -12,6 +12,7 @@ const reviewSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.String,
         ref: "UserModel"
     },
+    userId: String,
     recipeName: String,
     recipeImg: String
 }, {collection: "reviews", timestamps: true})
