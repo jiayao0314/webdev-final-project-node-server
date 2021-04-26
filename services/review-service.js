@@ -9,8 +9,8 @@ const findReviewsByRecipe = (recipeId) => {
     return reviewModel.find({recipeId: recipeId}).populate("users").exec()
 }
 
-const createReviewForRecipe = (recipeId, textArea, username, recipeName, recipeImg) => {
-    return reviewModel.create({recipeId, textArea, username, recipeName, recipeImg})
+const createReviewForRecipe = (recipeId, textArea, username, recipeName, recipeImg, userId) => {
+    return reviewModel.create({recipeId, textArea, username, recipeName, recipeImg, userId})
 }
 
 const findReviewById = (reviewId) => {

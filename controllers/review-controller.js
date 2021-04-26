@@ -27,7 +27,8 @@ module.exports = (app) => {
         const username = review.username;
         const recipeName = review.recipeName;
         const recipeImg = review.recipeImg;
-        reviewService.createReviewForRecipe(recipeId, textArea, username, recipeName, recipeImg)
+        const userId = review.userId;
+        reviewService.createReviewForRecipe(recipeId, textArea, username, recipeName, recipeImg, userId)
             .then(review => res.json(review));
     }
 
