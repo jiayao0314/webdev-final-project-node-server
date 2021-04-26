@@ -54,6 +54,15 @@ module.exports = (app) => {
             .catch(err => console.error(`user not login, findUserById error: ${err}`));
     }
 
+    const findUserByUsername = (req, res) => {
+        const targetUser = req.params['username'];
+        userService.findUserByUsername(targetUser)
+            .then((user) => {
+                res.send(user);
+            })
+            .catch(err => console.error(`user not exit, findUserByUsername error: ${err}`));
+    }
+
     const findAllUsers = (req, res) => {
         userService.findAllUsers()
             .then((users) => {
@@ -86,6 +95,7 @@ module.exports = (app) => {
     // "/profile" for all users, /profiles for admin
     app.get("/api/profile", findUser);
     app.get("/api/profiles/:uid", findUserById);
+    app.get("/api/profiles/username/:username", findUserByUsername);
     app.get("/api/profiles", findAllUsers);
     app.delete("/api/profiles/:uid", deleteUserById);
     app.put("/api/profile", updateUser);
